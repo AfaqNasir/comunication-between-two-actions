@@ -1,0 +1,20 @@
+name: My Action 2
+
+on:
+  workflow_dispatch:
+    inputs:
+      first_name:
+        description: 'First name'
+        required: true
+      second_name:
+        description: 'Second name'
+        required: true
+
+jobs:
+  my-action2-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Full Name
+        run: |
+          echo "Full Name: ${{ github.event.inputs.first_name }} ${{ github.event.inputs.second_name }}"
