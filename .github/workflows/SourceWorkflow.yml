@@ -1,0 +1,24 @@
+name: Source Workflow
+
+on:
+  push:
+    branches:
+      - source
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Variable
+        id: set_variable
+        run: echo "::set-output name=myArtifactName::MyVariableValue"
+
+      - name: Save variable as artifact
+        run: echo ${{ steps.set_variable.outputs.myArtifactName }} > variable.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: variable.txt
