@@ -24,3 +24,4 @@ jobs:
       - name: Use variable from artifact
         run: |
           echo "Variable from artifact: ${{ steps.read_variable.outputs.myArtifactName }}"
+ 
