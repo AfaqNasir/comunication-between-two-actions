@@ -1,0 +1,28 @@
+name: My Action 1
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  my-action1-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Output Variables
+        id: set-vars
+        run: |
+          echo "::set-output name=first_name::John"
+          echo "::set-output name=second_name::Doe"
+      
+      - name: Display Output
+        run: |
+          echo "First Name: ${{ steps.set-vars.outputs.first_name }}"
+          echo "Second Name: ${{ steps.set-vars.outputs.second_name }}"
+      
+      - name: Trigger My Action 2
+        uses: ./.github/workflows/my-action2.yml
+        with:
+          first_name: ${{ steps.set-vars.outputs.first_name }}
+          second_name: ${{ steps.set-vars.outputs.second_name }}
