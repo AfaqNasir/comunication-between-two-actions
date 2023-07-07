@@ -1,0 +1,26 @@
+name: Target Workflow
+
+on:
+  push:
+    branches:
+      - target
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+
+      - name: Read variable from artifact
+        id: read_variable
+        run: |
+          cat variable.txt
+          echo "::set-output name=myArtifactName::$(cat variable.txt)"
+
+      - name: Use variable from artifact
+        run: |
+          echo "Variable from artifact: ${{ steps.read_variable.outputs.myArtifactName }}"
